@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quotes</title>
+</head>
+<body>
+	<div id="header">
+		<h1>Welcome, {{ request.session.name }}!</h1>
+		<a href="/">Logout</a>
+	</div>
+	<div>
+		<h4>Quoteable Quotes</h4>
+		
+			
+				{% for quote in otherQuotes %}
+					
+			<form action="/add_fav/{{quote.id}}" method="POST">
+				{% csrf_token %}
+						{{quote.quoted_by}} :
+						{{ quote.quote }}<br>
+						Posted By:<a href="/user_quotes/{{user.id}}">{{ quote.created_by.name }}</a><br>
+				 
+				<input type="submit" name="add_fav" value="Add to My List"><br>
+			</form>	
+					
+				{% endfor %}
+				
+		
+		<h4>Your Favorites</h4>
+				{% for quote in favQuotes %}
+			<form action="/remove_quote/{{quote.id}}" method="POST">
+				{% csrf_token %}
+					{{quote.quoted_by}} :
+					{{ quote.quote }}<br>
+					Posted By:<a href="/user_quotes/{{user.id}}">{{ quote.created_by.name }}</a><br>
+				<input type="submit" name="remove" value="Remove From My List"><br>
+			</form>
+				{% endfor %}
+
+		
+	</div>
+
+	<div>
+		<h1>Contribute a Quote:</h1>
+		<form action="/add_quote" method="POST">
+			{% csrf_token %}
+			<label>Quoted By:</label><input type="text" name="quoted_by">
+			<label>Message:</label><input type="textfield" name="message">
+
+			<input type="submit" name="submit" value="Add">
+		</form>
+	</div>
+</body>
+</html>

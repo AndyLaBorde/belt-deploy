@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Quotes</title>
+</head>
+	<body>
+		Posts by {{ user.name }}
+		<a href="/dashboard">Dashboard</a>
+		<a href="/logout">Logout</a><br>
+		<h3>count {{ quote.quote.all | length }}</h3>
+
+		{% for quote in otherQuotes %}
+			<div>
+				<span style="color : red">{{quote.quoted_by}} :</span>
+				{{ quote }}
+			</div>
+		{% endfor %}
+
+	</body>
+</html>
